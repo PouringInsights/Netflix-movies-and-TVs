@@ -1,36 +1,38 @@
 # Netflix-movies-and-TVs
-Exploratory and Visualization 
-#This dataset contains more than 8,500 Netflix movies and TV shows, including cast members, duration, and genre. It contains titles added as recently as late September 2021. I found the dataset from Kaggle  
+# Exploratory and Visualization 
+#In the pandemic time, as a student, I spent so much time in watching movies/ TVs from Netflix. Because of that, I have an idea that what if I could analyze the data from Netflix to see how Netflix is doing. I wasnt sure that I could find the dataset, but I was lucky that this is a famous dataset in Kaggle. In that way, I could try my best to practice what I have learned with this. 
 
-#```{r, message=FALSE}
+This dataset contains more than 8,500 Netflix movies and TV shows, including cast members, duration, and genre. It contains titles added as recently as late September 2021. 
 
+# calling the library 
+First of all, I will call all the library that I could use in this dataset. 
 
-data <- readr::read_csv('D:/Giang/studying/project/Netflix/Netflix movies and TVs/netflix_titles.csv')
-head(data,5)
-
-
-library(ggplot2)
+<library(ggplot2)
 library(tidyverse)
 library(lubridate) 
 library(dplyr)
 library(tibble)  
 library(purrr)
 library(tidyr)
-library(forcats)
-### Data Dictionary
+library(forcats)>
 
-#  |:--------------|:----------|:--------------------------------------------------------------|
-#  | type          | character | Either 'TV Show' or 'Movie'                                   |
-#  | title         | character | The title of the movie or TV show                             |
-#  | director      | character | The director of the movie or TV show                          |
-#  | cast          | character | The actors playing in the movie or TV show                    |
-#  | country       | character | The country in which the movie or TV show was directed        |
-#  | date_added    | character | The date on which the movie or TV show was added to Netflix   |
-#  | release_year  | character | The year the movie or TV show was released                    |
-#  | rating        | character | The kid-friendly rating the movie or TV show received         |
-#  | duration      | character | The length of the movie or TV show                            |
-#  | listed_in     | character | The genre of the movie or TV show                             |
-#  | description   | character | The description/short summary of the movie or TV show         |
+data <- readr::read_csv('D:/Giang/studying/project/Netflix/Netflix movies and TVs/netflix_titles.csv')
+head(data,5)
+
+# Data Dictionary
+
+###  #|:--------------|:----------|:--------------------------------------------------------------|
+     #| type          | character | Either 'TV Show' or 'Movie'                                   |
+     #| title         | character | The title of the movie or TV show                             |
+     #| director      | character | The director of the movie or TV show                          |
+     #| cast          | character | The actors playing in the movie or TV show                    |
+     #| country       | character | The country in which the movie or TV show was directed        |
+     #| date_added    | character | The date on which the movie or TV show was added to Netflix   |
+     #| release_year  | character | The year the movie or TV show was released                    |
+     #| rating        | character | The kid-friendly rating the movie or TV show received         |
+     #| duration      | character | The length of the movie or TV show                            |
+     #| listed_in     | character | The genre of the movie or TV show                             |
+     #| description   | character | The description/short summary of the movie or TV show         | ###
   
 #  [Source of dataset](https://www.kaggle.com/shivamb/netflix-shows).
 
@@ -67,6 +69,8 @@ countries %>%
        subtitle = "Netflix Data",
        caption = 'Data Source: Kaggle') +
   theme_minimal()
+
+![image](https://user-images.githubusercontent.com/100246099/155381141-3bfc234e-8ec7-4cc9-bb69-83c7b4637b8e.png)
 
 # number title of each country
 max(str_count(countries$country, ','))
