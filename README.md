@@ -1,49 +1,67 @@
-# Netflix-movies-and-TVs
-# Exploratory and Visualization 
-#In the pandemic time, as a student, I spent so much time in watching movies/ TVs from Netflix. Because of that, I have an idea that what if I could analyze the data from Netflix to see how Netflix is doing. I wasnt sure that I could find the dataset, but I was lucky that this is a famous dataset in Kaggle. In that way, I could try my best to practice what I have learned with this. 
+ # **Netflix-movies-and-TVs**
+## 1. Exploratory and Visualization 
+
+In the pandemic time, as a student, I spent so much time in watching movies/ TVs from Netflix. Because of that, I have an idea that what if I could analyze the data from Netflix to see how Netflix is doing. I wasnt sure that I could find the dataset, but I was lucky that this is a famous dataset in Kaggle. In that way, I could try my best to practice what I have learned with this. 
 
 This dataset contains more than 8,500 Netflix movies and TV shows, including cast members, duration, and genre. It contains titles added as recently as late September 2021. 
 
-# calling the library 
+### * *Calling the library* * 
 First of all, I will call all the library that I could use in this dataset. 
 
-<library(ggplot2)
+<details><summary>library</summary>
+<p>
+
+```{r}
+library(ggplot2)
 library(tidyverse)
 library(lubridate) 
 library(dplyr)
 library(tibble)  
 library(purrr)
 library(tidyr)
-library(forcats)>
+library(forcats)
+```
+</p>
+</details>
 
+<details><summary>import file</summary>
+<p>
+     
+```{r} 
 data <- readr::read_csv('D:/Giang/studying/project/Netflix/Netflix movies and TVs/netflix_titles.csv')
 head(data,5)
+```
+</p>
+</details>
 
-# Data Dictionary
+## Data Dictionary
 
-###  #|:--------------|:----------|:--------------------------------------------------------------|
-     #| type          | character | Either 'TV Show' or 'Movie'                                   |
-     #| title         | character | The title of the movie or TV show                             |
-     #| director      | character | The director of the movie or TV show                          |
-     #| cast          | character | The actors playing in the movie or TV show                    |
-     #| country       | character | The country in which the movie or TV show was directed        |
-     #| date_added    | character | The date on which the movie or TV show was added to Netflix   |
-     #| release_year  | character | The year the movie or TV show was released                    |
-     #| rating        | character | The kid-friendly rating the movie or TV show received         |
-     #| duration      | character | The length of the movie or TV show                            |
-     #| listed_in     | character | The genre of the movie or TV show                             |
-     #| description   | character | The description/short summary of the movie or TV show         | ###
+     |:--------------|:----------|:--------------------------------------------------------------|
+     | type          | character | Either 'TV Show' or 'Movie'                                   |
+     | title         | character | The title of the movie or TV show                             |
+     | director      | character | The director of the movie or TV show                          |
+     | cast          | character | The actors playing in the movie or TV show                    |
+     | country       | character | The country in which the movie or TV show was directed        |
+     | date_added    | character | The date on which the movie or TV show was added to Netflix   |
+     | release_year  | character | The year the movie or TV show was released                    |
+     | rating        | character | The kid-friendly rating the movie or TV show received         |
+     | duration      | character | The length of the movie or TV show                            |
+     | listed_in     | character | The genre of the movie or TV show                             |
+     | description   | character | The description/short summary of the movie or TV show         | 
   
-#  [Source of dataset](https://www.kaggle.com/shivamb/netflix-shows).
+#  [Source of dataset](https://www.kaggle.com/shivamb/netflix-shows)
 
+```{r}
 summary(data)
 data%>%
   group_by(show_id)%>%
   count()%>%
   filter(n>1)
 glimpse(data)
+```
+The following code is just about the theme and size that I want. it is more like the personal reference. 
 
-
+```{r}
 fill_theme <- theme(axis.text.x = element_text(size = 16, color = "#1B4F72"),
            axis.text.y = element_text(size = 16, color = "#34495E"),
            axis.title.x = element_text(size = 16),
@@ -51,17 +69,23 @@ fill_theme <- theme(axis.text.x = element_text(size = 16, color = "#1B4F72"),
   theme(legend.key.size = unit(x = 2, units = 'line'),
         legend.text = element_text(size = 14, color = "#1B4F72"),
         legend.title = element_text(size = 14, color = "#34495E"))
-
+```
+```{r}
 fig <- function(width, heigth){
   options(repr.plot.width = width, repr.plot.height = heigth)}
+```
 
-#Drop NA value
+Drop NA value
+```{r}
 countries<-data%>%
   select(country, type, title, listed_in)
 sum(is.na(countries$country))/nrow(countries)
 countries<-countries%>%
   filter(!is.na(country))
-#show types 
+  ```
+  
+Show types 
+```{r}
 countries %>%
   count(type) %>%
   ggplot() + geom_col(aes(x = type, y = n, fill = type)) +
@@ -69,7 +93,7 @@ countries %>%
        subtitle = "Netflix Data",
        caption = 'Data Source: Kaggle') +
   theme_minimal()
-
+```
 ![image](https://user-images.githubusercontent.com/100246099/155381141-3bfc234e-8ec7-4cc9-bb69-83c7b4637b8e.png)
 
 # number title of each country
