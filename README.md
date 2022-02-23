@@ -1,6 +1,6 @@
 # Netflix-movies-and-TVs
 Exploratory and Visualization 
-#This dataset contains more than 8,500 Netflix movies and TV shows, including cast members, duration, and genre. It contains titles added as recently as late September 2021.
+#This dataset contains more than 8,500 Netflix movies and TV shows, including cast members, duration, and genre. It contains titles added as recently as late September 2021. I found the dataset from Kaggle  
 
 #```{r, message=FALSE}
 
@@ -68,7 +68,7 @@ countries %>%
        caption = 'Data Source: Kaggle') +
   theme_minimal()
 
-#number title of each country
+# number title of each country
 max(str_count(countries$country, ','))
 #max = 11 ',' => maximum = 12 countries
 
@@ -98,7 +98,7 @@ ctr%>%
     x= "Country name",
     title="The outstanding number of movies in US and India") +coord_flip() +fill_theme
 
-#To understand the categories from Netflix 
+# To understand the categories from Netflix 
 
 ctr<-ctr[-1,-2]
 max(str_count(countries$listed_in, ','))
@@ -125,7 +125,7 @@ list_in%>%
     title='Interational movies and the Dramas are the most movie types on Netflix') + coord_flip() + fill_theme
 
 
-#show rating
+# show rating
 value = c("#641E16", "#D35400", "#EC7063", "#154360", "#148F77",
           "#2ECC71","#F4D03F","#1C2833","#17202A")
 
@@ -145,9 +145,7 @@ data %>%
   scale_y_continuous(breaks = seq(from = 0, to = 3000, by = 200))+
   labs(x = '', y = '') + fill_theme
 
-
-
-#To figure out how many shows have been added into Netflix, the data will be visualized quarterly
+# To figure out how many shows have been added into Netflix, the data will be visualized quarterly
 fig(17,20)
 data$date_added <- as.Date(data$date_added, format = '%B %d, %Y') 
 data %>%
@@ -162,7 +160,7 @@ data %>%
         panel.grid.major.x = element_blank())+
   labs(y = 'shows added per quarter', color = "#0B5345",x = '') + fill_theme
 
-#Figure out the top TVs/ movies types in UK
+# Figure out the top TVs/ movies types in UK
 
 list_in<-list_in%>%
   group_by(list_in)%>%
