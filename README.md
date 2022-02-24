@@ -158,8 +158,14 @@ ctr%>%
 
 ![image](https://user-images.githubusercontent.com/100246099/155432345-8df9bd05-1cf2-43d6-9cd5-22697aa9efcb.png)
 
-# To understand the categories from Netflix 
+## 4. To understand the categories from Netflix 
+This part is showing the categories in Netflix 
+This first hidden code is the preparation for the chart
 
+<details><summary>preparation</summary>
+<p>
+ 
+```ruby
 ctr<-ctr[-1,-2]
 max(str_count(countries$listed_in, ','))
 
@@ -172,7 +178,13 @@ List_in<-List_in%>%unlist()
 list_in<-tibble(
   list_in=List_in
 )
-
+```
+</p>
+</details>
+ 
+ *And this is the code for chart* 
+ 
+```ruby
 list_in%>%
   group_by(list_in)%>%
   count()%>%
@@ -183,13 +195,25 @@ list_in%>%
     y='Numbers of type in movies on Netflix',
     x='Types',
     title='Interational movies and the Dramas are the most movie types on Netflix') + coord_flip() + fill_theme
+```
+ 
+ ![image](https://user-images.githubusercontent.com/100246099/155439451-d393c311-6cb5-46db-a09c-43c03008e93e.png)
 
+ 
+## 5. Shows rating
 
-# show rating
-
-colorset = c("#105738","#407442","#6e914c","#a1ad57",
+ There are many types of movies and TV shows that fit different audience, so the rating would be set to understand which audience they focus on 
+ 
+ <details><summary>colorset</summary>
+<p>
+ 
+```ruby
+ colorset = c("#105738","#407442","#6e914c","#a1ad57",
               "#dac767","#ca9b43","#b77028","#a04417","#850b10")
-
+```
+ </p>
+</details>
+ 
 ```ruby
 data %>%
   count(rating) %>%
@@ -205,8 +229,11 @@ data %>%
 ```
 ![image](https://user-images.githubusercontent.com/100246099/155435456-f32023b4-b8e0-45a0-90df-340bdcf00f47.png)
 
-# To figure out how many shows have been added into Netflix, the data will be visualized quarterly
-fig(17,20)
+## 6.  Shows added quarterly
+ To figure out how many shows have been added into Netflix, the data will be visualized quarterly
+
+ ```ruby
+ fig(17,20)
 data$date_added <- as.Date(data$date_added, format = '%B %d, %Y') 
 data %>%
   filter(date_added > '2015-01-01' & date_added < '2021-12-31') %>%
@@ -219,9 +246,18 @@ data %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
         panel.grid.major.x = element_blank())+
   labs(y = 'shows added per quarter', color = "#0B5345",x = '') + fill_theme
+```
+ ![image](https://user-images.githubusercontent.com/100246099/155441251-00cfc1a1-f51c-46ac-ae18-2a3cd7961eff.png)
 
-# Figure out the top TVs/ movies types in UK
-
+ 
+## 7. Top TVs/ movies types in UK
+Top 10 added TV shows/movies in the UK will be added in this part
+ Why UK? Accounding to the part 3, there are 3 3 countries have the most movies and TV shows in the Netflix, however, I currently live in UK, so that this part will only show about the data in the UK 
+ 
+ <details><summary>preparation</summary>
+<p>
+ 
+ ```ruby
 list_in<-list_in%>%
   group_by(list_in)%>%
   filter(!is.na(list_in))%>%
@@ -244,7 +280,11 @@ UK.list<-UK.movie%>%
 UK.list<-tibble(
   type = UK.list,
 )
-
+```
+ </p>
+</details>
+ 
+ ```ruby
 UK.list%>%
   group_by(type)%>%
   count()%>%
@@ -264,4 +304,5 @@ UK.list%>%
     title='NetFlix: Top 10 movie types in UK',
     subtitle='Dramas amd Comedies are the most types of movies in UK'
   )
-
+```
+![image](https://user-images.githubusercontent.com/100246099/155441890-3c4b4964-bc9e-418b-98a8-121fa2404b93.png)
