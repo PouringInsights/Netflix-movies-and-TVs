@@ -11,7 +11,7 @@ First of all, I will call all the library that I could use in this dataset.
 <details><summary>library</summary>
 <p>
 
-```{r}
+```ruby
 library(ggplot2)
 library(tidyverse)
 library(lubridate) 
@@ -51,7 +51,9 @@ head(data,5)
   
 #  [Source of dataset](https://www.kaggle.com/shivamb/netflix-shows)
 
-```{r}
+There is some quick summary of the dataset
+
+```ruby
 summary(data)
 data%>%
   group_by(show_id)%>%
@@ -61,7 +63,10 @@ glimpse(data)
 ```
 The following code is just about the theme and size that I want. it is more like the personal reference. 
 
-```{r}
+<details><summary>theme and size</summary>
+<p>
+
+```ruby
 fill_theme <- theme(axis.text.x = element_text(size = 16, color = "#1B4F72"),
            axis.text.y = element_text(size = 16, color = "#34495E"),
            axis.title.x = element_text(size = 16),
@@ -70,13 +75,15 @@ fill_theme <- theme(axis.text.x = element_text(size = 16, color = "#1B4F72"),
         legend.text = element_text(size = 14, color = "#1B4F72"),
         legend.title = element_text(size = 14, color = "#34495E"))
 ```
-```{r}
+```ruby
 fig <- function(width, heigth){
   options(repr.plot.width = width, repr.plot.height = heigth)}
 ```
+</p>
+</details>
 
-Drop NA value
-```{r}
+**Drop NA value**
+```ruby
 countries<-data%>%
   select(country, type, title, listed_in)
 sum(is.na(countries$country))/nrow(countries)
@@ -84,8 +91,10 @@ countries<-countries%>%
   filter(!is.na(country))
   ```
   
-Show types 
-```{r}
+## 2. Show types
+The following part is the bar chart about the comparation between number of movies and TVs show in Netflix, the number of movies existed in Netlfix is double the number of TVs show
+
+```ruby
 countries %>%
   count(type) %>%
   ggplot() + geom_col(aes(x = type, y = n, fill = type)) +
@@ -96,11 +105,19 @@ countries %>%
 ```
 ![image](https://user-images.githubusercontent.com/100246099/155381141-3bfc234e-8ec7-4cc9-bb69-83c7b4637b8e.png)
 
-# number title of each country
+## 3. Which countries have produced the most movies in Netflix
+This part is about the origin countries of the movies and TV shows in Netflix
+In the hidden part is about the preparation that extract a dataframe that include only countries name and the number of titles for each country 
+
+<details><summary>preparation code</summary>
+<p>
+
+ ```ruby
+### number title of each country
 max(str_count(countries$country, ','))
 #max = 11 ',' => maximum = 12 countries
 
-# split the combined countries into single one
+### split the combined countries into single one
 ctr<-countries%>%
   separate(country, into = c('a','b','c','d','e','f','g','h','i','j','k','l')
            ,", ", convert = TRUE)
@@ -116,15 +133,30 @@ ctr<-ctr_tibble%>%
   group_by(country_name)%>%
   count()%>%
   filter(!is.na(country_name))
+```
+</p>
+</details>
+
+**And there is the code for chart**
+
+<details><summary>Top countries</summary>
+<p>
+ 
+ ```ruby
 fig(6,20)
 ctr%>%
   filter(n>100 && country_name != '')%>%
-  ggplot(aes(reorder(country_name, FUN=median, n),n, fill= n>1000)) +
+  ggplot(aes(reorder(country_name, FUN=median, n),n, fill= n>800)) +
   geom_bar(stat='identity', show.legend = F) +
   labs(
     y="Numbers of movies on Netflix",
     x= "Country name",
     title="The outstanding number of movies in US and India") +coord_flip() +fill_theme
+ ```
+ </p>
+</details>
+
+![image](https://user-images.githubusercontent.com/100246099/155432345-8df9bd05-1cf2-43d6-9cd5-22697aa9efcb.png)
 
 # To understand the categories from Netflix 
 
@@ -154,13 +186,11 @@ list_in%>%
 
 
 # show rating
-value = c("#641E16", "#D35400", "#EC7063", "#154360", "#148F77",
-          "#2ECC71","#F4D03F","#1C2833","#17202A")
 
 colorset = c("#105738","#407442","#6e914c","#a1ad57",
               "#dac767","#ca9b43","#b77028","#a04417","#850b10")
-cols <- c("TV-MA" ="#105738", "TV-14" ="#407442","TV-PG" ="#6e914c","R" = "#a1ad57",
-          "PG-13"= "#dac767","TV-Y7"="#ca9b43","TV-Y" ="#b77028","PG" ="#a04417","TV-G"= "#850b10")
+
+```ruby
 data %>%
   count(rating) %>%
   group_by(rating) %>%
@@ -172,6 +202,8 @@ data %>%
         panel.grid.major.y = element_blank())+
   scale_y_continuous(breaks = seq(from = 0, to = 3000, by = 200))+
   labs(x = '', y = '') + fill_theme
+```
+![image](https://user-images.githubusercontent.com/100246099/155435456-f32023b4-b8e0-45a0-90df-340bdcf00f47.png)
 
 # To figure out how many shows have been added into Netflix, the data will be visualized quarterly
 fig(17,20)
