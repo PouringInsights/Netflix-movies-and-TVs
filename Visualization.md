@@ -1,4 +1,15 @@
  # **Netflix-movies-and-TVs**
+
+The summary dashboard is showed below 
+
+<details><summary>Dashboard</summary>
+<p>
+ 
+ ![dashboard](https://user-images.githubusercontent.com/100246099/155524505-e6b69bac-1e98-4eda-a901-3517b921ce27.jpg)
+ 
+</p>
+</details>
+
 ## 1. Exploratory and Visualization 
 
 In the pandemic time, as a student, I spent so much time in watching movies/ TVs from Netflix. Because of that, I have an idea that what if I could analyze the data from Netflix to see how Netflix is doing. I wasnt sure that I could find the dataset, but I was lucky that this is a famous dataset in Kaggle. In that way, I could try my best to practice what I have learned with this. 
@@ -306,3 +317,5 @@ UK.list%>%
   )
 ```
 ![image](https://user-images.githubusercontent.com/100246099/155441890-3c4b4964-bc9e-418b-98a8-121fa2404b93.png)
+ 
+ 
